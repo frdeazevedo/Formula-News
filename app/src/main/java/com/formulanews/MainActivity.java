@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity
-                          implements  BottomNavigationView.OnNavigationItemSelectedListener {
+                          implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +20,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         this.mBottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Log.d("DBG", "Item:"+item.getItemId());
         switch(item.getItemId()) {
             case R.id.action_news: {
                 getSupportActionBar().setTitle("Notícias");
