@@ -2,6 +2,8 @@ package com.formulanews;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_news: {
+                getSupportActionBar().setTitle("Notícias");
+                Fragment newsFragment = NewsFragment.newInstance();
+                openFragment(newsFragment);
                 break;
             }
             case R.id.action_standings: {
@@ -37,4 +42,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private BottomNavigationView mBottomNavigationView;
+
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }
