@@ -14,7 +14,7 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
         TextView headline = (TextView)view.findViewById(R.id.text_view_header);
-        headline.setText("Aqui vai o headline da notícia");
+        headline.setText(this.mHeadline);
 
         TextView fullnews = (TextView)view.findViewById(R.id.text_view_news);
         fullnews.setText(this.mFullNews);
@@ -22,18 +22,11 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
-    public NewsFragment(String news) {
+    public NewsFragment(String headline, String news) {
+        this.mHeadline = headline;
         this.mFullNews = news;
     }
 
-    /*public static NewsFragment newInstance() {
-        return new NewsFragment();
-    }*/
-
-    public void setFullNews(String s) {
-
-    }
-
     private String mFullNews;
-
+    private String mHeadline;
 }

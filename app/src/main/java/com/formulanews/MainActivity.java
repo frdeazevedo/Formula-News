@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
         Fragment[] newsFragment = new NewsFragment[15];
 
         for(int i=0; i<15; i++) {
-            NewsFragment nf = new NewsFragment("Notícia "+ i);
+            NewsFragment nf = new NewsFragment("Headline "+ i, "Texto da notícia " + i);
             newsFragment[i] = nf;
         }
 

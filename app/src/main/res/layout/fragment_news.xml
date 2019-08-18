@@ -1,51 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:layout_marginBottom="24sp"
+    android:paddingBottom="16sp"
+    android:padding="5dp"
+    android:elevation="5dp"
+    android:outlineProvider="bounds"
+    >
+    <ImageView
+        android:id="@+id/image_view_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_marginBottom="24sp"
-            android:paddingBottom="16sp"
-            android:padding="5dp"
-            android:clipToPadding="false"
-            android:elevation="5dp"
-            android:outlineProvider="bounds"
-            >
-            <ImageView
-                android:id="@+id/image_view_header"
-                android:layout_width="match_parent"
-                android:layout_height="128sp"
-                android:src=" @drawable/mclaren_mp46_honda"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"/>
-            <TextView
-                android:id="@+id/text_view_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:textSize="22sp"
-                android:text="Fórmula 1 - Além do grid"
-                android:padding="3sp"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-            <TextView
-                android:id="@+id/text_view_news"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#555"
-                android:textSize="14sp"
-                android:text="Bem-vindos a mais um episódio. Hoje falaremos com Miguel Xumaquer e sua vitoriosa carreira. Venha e ouça conosco a entrevista com o heptacampeão mundial de Fórmula 1, e agora estou enchendo linquiça porque não sei mais o que escrever nesse teste."
-                android:padding="3sp"
-                android:maxLines="3"
-                android:ellipsize="end"/>
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+        android:layout_height="128sp"
+        android:src=" @drawable/mclaren_mp46_honda"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
+    <TextView
+        android:id="@+id/text_view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:text="Fórmula 1 - Além do grid"
+        android:padding="3sp"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+    <TextView
+        android:id="@+id/text_view_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#555"
+        android:textSize="14sp"
+        android:text="Bem-vindos a mais um episódio. Hoje falaremos com Miguel Xumaquer e sua vitoriosa carreira. Venha e ouça conosco a entrevista com o heptacampeão mundial de Fórmula 1, e agora estou enchendo linquiça porque não sei mais o que escrever nesse teste."
+        android:padding="3sp"
+        android:maxLines="3"
+        android:ellipsize="end"/>
+</LinearLayout>
