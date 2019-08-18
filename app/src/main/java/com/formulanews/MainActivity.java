@@ -11,6 +11,9 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
                           implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -21,11 +24,13 @@ public class MainActivity extends AppCompatActivity
 
         this.mBottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        Fragment newsFragment = NewsFragment.newInstance();
+        openFragment(newsFragment);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Log.d("DBG", "Item:"+item.getItemId());
         switch(item.getItemId()) {
             case R.id.action_news: {
                 getSupportActionBar().setTitle("Notícias");
