@@ -19,41 +19,27 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        this.mBottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
-*/
 
         this.initGui();
-
-        /*
-        Fragment[] newsFragment = new NewsFragment[15];
-
-        for(int i=0; i<15; i++) {
-            NewsFragment nf = new NewsFragment("Headline "+ i, "Texto da notícia " + i);
-            newsFragment[i] = nf;
-        }
-
-        openFragment(newsFragment);
-        */
-
-        this.openNewsPage();
+        this.openMainPage();
+        //this.openNewsPage();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        this.closeAllFragments();
+
         switch(item.getItemId()) {
             case R.id.action_news: {
-                this.closeAllFragments();
                 this.openNewsPage();
                 break;
             }
             case R.id.action_standings: {
-                this.closeAllFragments();
+                this.openStandingsPage();
                 break;
             }
             case R.id.action_videos: {
-                this.closeAllFragments();
+                this.openVideosPage();
                 break;
             }
         }
@@ -67,7 +53,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void openMainPage() {
+        Fragment[] featuredFragment = new Fragment[1];
+        featuredFragment[0] = new FeaturedFragment("Radio Ga Ga - Remastered");
 
+        openFragment(featuredFragment);
     }
 
     public void openNewsPage() {
@@ -85,15 +74,19 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void openVideosPage() {
+
+    }
+
     private BottomNavigationView mBottomNavigationView;
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
 
     private void openFragment(Fragment[] fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        for(int i=0; i<15; i++) {
-            transaction.add(R.id.container, fragment[i], "News"+i);
+        int i=0;
+        for(Fragment f:fragment) {
+            i++;
+            transaction.add(R.id.container, f, "News"+i);
         }
 
         transaction.commit();

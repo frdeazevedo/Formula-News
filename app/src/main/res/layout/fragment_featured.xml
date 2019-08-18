@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="160sp"
+    android:paddingTop="8sp"
+    android:paddingBottom="8sp"
+    android:background="#f00"
+    android:id="@+id/constraint_layout_featured"
+    app:layout_constrainedHeight="true">
+    <ImageView
+        android:id="@+id/image_view_featured"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/renault_mclaren2019"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#a022"
+        android:layout_marginLeft="16sp"
+        android:paddingLeft="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            style="@android:style/TextAppearance.Large"
+            android:id="@+id/text_view_featured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:text="Featured News"
+            android:paddingTop="8sp"/>
+        <TextView
+            style="@android:style/TextAppearance.Medium"
+            android:id="@+id/text_view_description_featured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:text="Featured News"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
