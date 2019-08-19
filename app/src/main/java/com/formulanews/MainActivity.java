@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         this.initGui();
-        this.openMainPage();
-        //this.openNewsPage();
+        //this.openMainPage();
+
+        this.testing();
     }
 
     @Override
@@ -98,5 +99,25 @@ public class MainActivity extends AppCompatActivity
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(f).commit();
         }
+    }
+
+    private void testing() {
+        Fragment featured = new FeaturedFragment("Novato, Lando Norris destaca pressão de pilotar pela McLaren: \"Totalmente insana\"", "Em sua primeira temporada na principal categoria do automobilismo mundial, Norris se vê em busca de corresponder às expectativas no começo e ajudar nos ajustes do carro");
+        Fragment news1 = new NewsFragment("Aval do campeão", "Mercedes consulta Lewis Hamilton para decidir se mantém Valtteri Bottas na equipe em 2020");
+        Fragment news2 = new NewsFragment("Tensão", "Leclerc fala sobre Verstappen: \"Quando crianças, nem nos despedíamos\"");
+        Fragment news3 = new NewsFragment("Verstappen diz que Hamilton é dependente do carro e que há \"três ou quatro\" como ele", "Piloto holandês de 21 anos diz que há outros pilotos com a mesma capacidade do pentacampeão mundial, e Jos, pai de Max, acredita no domínio do filho na Honda");
+        Fragment doublenews1 = new DoubleNewsFragment("Saudade da F1? SporTV2 apresenta domingo especial com resumo das corridas logo após a Copa Truck", "RBR sondou Fernando Alonso para o lugar de Pierre Gasly, mas espanhol recusou, diz jornal");
+        Fragment news4 = new NewsFragment("Rubens Barrichello confirma participação em nova categoria de fórmula criada na Austrália", "Recordista de participações na história da F1, brasileiro vai correr na S5000, com carros de 560 cavalos de potência; hoje na Stock car, piloto não corre de monoposto desde o fim de 2012");
+
+        Fragment[] fragments = new Fragment[6];
+        fragments[0] = featured;
+        fragments[1] = news1;
+        fragments[2] = news2;
+        fragments[3] = news3;
+        fragments[4] = doublenews1;
+        fragments[5] = news4;
+
+        openFragment(fragments);
+
     }
 }
