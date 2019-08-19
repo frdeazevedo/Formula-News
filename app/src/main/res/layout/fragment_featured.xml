@@ -7,7 +7,7 @@
     android:layout_height="320sp"
     android:paddingTop="8sp"
     android:paddingBottom="8sp"
-    android:background="#f00"
+    android:background="#000"
     android:id="@+id/constraint_layout_featured"
     app:layout_constrainedHeight="true">
     <ImageView

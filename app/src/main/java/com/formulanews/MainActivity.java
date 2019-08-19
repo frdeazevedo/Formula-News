@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
 
         switch(item.getItemId()) {
             case R.id.action_news: {
-                this.openNewsPage();
+                this.openMainPage();
                 break;
             }
             case R.id.action_standings: {
