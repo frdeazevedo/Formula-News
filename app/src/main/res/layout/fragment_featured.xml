@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="160sp"
+    android:layout_height="320sp"
     android:paddingTop="8sp"
     android:paddingBottom="8sp"
     android:background="#f00"
@@ -31,16 +31,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#fff"
+            android:textStyle="bold"
             android:text="Featured News"
-            android:paddingTop="8sp"/>
+            android:paddingTop="8sp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
         <TextView
-            style="@android:style/TextAppearance.Medium"
+            style="@android:style/TextAppearance.Small"
             android:id="@+id/text_view_description_featured"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#fff"
             android:text="Featured News"
+            android:textStyle="italic"
+            android:maxLines="3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:ellipsize="end"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,9 +54,11 @@ public class MainActivity extends AppCompatActivity
 
     public void openMainPage() {
         Fragment[] featuredFragment = new Fragment[1];
-        featuredFragment[0] = new FeaturedFragment("Radio Ga Ga - Remastered");
+        featuredFragment[0] = new FeaturedFragment("Novato, Lando Norris destaca pressão de pilotar pela McLaren: \"Totalmente insana\"", "Em sua primeira temporada na principal categoria do automobilismo mundial, Norris se vê em busca de corresponder às expectativas no começo e ajudar nos ajustes do carro");
 
         openFragment(featuredFragment);
+
+        this.openNewsPage();
     }
 
     public void openNewsPage() {

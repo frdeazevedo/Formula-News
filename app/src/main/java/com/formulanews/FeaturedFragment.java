@@ -16,12 +16,17 @@ public class FeaturedFragment extends Fragment {
         TextView headline = (TextView)view.findViewById(R.id.text_view_featured);
         headline.setText(this.mHeadline);
 
+        TextView description = (TextView)view.findViewById(R.id.text_view_description_featured);
+        description.setText(this.mDescription);
+
         return view;
     }
 
-    public FeaturedFragment(String headline) {
+    public FeaturedFragment(String headline, String description) {
         this.mHeadline = headline;
+        this.mDescription = description;
     }
 
     private String mHeadline;
+    private String mDescription;
 }
