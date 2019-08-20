@@ -16,10 +16,10 @@ public class NewsFragment extends    Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
-        TextView headline = (TextView)view.findViewById(R.id.text_view_header);
+        TextView headline = view.findViewById(R.id.text_view_header);
         headline.setText(this.mHeadline);
 
-        TextView fullnews = (TextView)view.findViewById(R.id.text_view_news);
+        TextView fullnews = view.findViewById(R.id.text_view_news);
         fullnews.setText(this.mFullNews);
 
         view.setOnClickListener(this);

@@ -1,31 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewsActivity">
-    <TextView
-        android:id="@+id/text_view_news_header"
+    <WebView
+        android:id="@+id/webview_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Large"
-        android:text="Header da notícia"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_news_description"/>
-    <TextView
-        android:id="@+id/text_view_news_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Small"
-        android:textStyle="italic"
-        android:text="Description da notícia"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_news_header"
-        app:layout_constraintStart_toEndOf="@+id/text_view_news_header"/>
-    <TextView
-        android:id="@+id/text_view_news_body"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cada vez mais perto de se tornar um piloto de Fórmula 1, Mick Schumacher revelou que jamais pensou em outra profissão. Para o filho do heptacampeão mundial Michael Schumacher, a paixão pela velocidade e pelos carros sempre esteve presente desde a infância, e hoje, aos 20 anos, o sonho de sua vida está mais próximo do que nunca.
-- Um plano B? Não, isso nunca esteve lá para mim. Simplesmente porque eu acho que se você tem um plano B, você nunca vai ficar pleno para o plano A. Pilotar na Fórmula 1 sempre foi meu sonho e você sempre tenta realizar sonhos - disse Mick ao site Inside Racing."
-        app:layout_constraintTop_toBottomOf="@+id/text_view_news_description"/>
+        android:layout_height="match_parent">
+    </WebView>
 </androidx.constraintlayout.widget.ConstraintLayout>

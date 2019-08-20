@@ -51,7 +51,7 @@ public class MainActivity extends    AppCompatActivity
     }
 
     public void initGui() {
-        this.mBottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        this.mBottomNavigationView = findViewById(R.id.bottom_navigation);
         this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
@@ -74,6 +74,19 @@ public class MainActivity extends    AppCompatActivity
     }
 
     private void testing() {
+        News[] allnews = new News[10];
+
+        for(int i=0; i<10; i++) {
+            News n = new News("Da chance de substituir Felipe Massa ao fracasso retumbante: a saga de Luca Badoer na Ferrari",
+                    "Depois de ficar dez anos sem disputar uma corrida sequer, italiano, então piloto de testes, foi chamado depois que Michael Schumacher foi vetado pelos médicos, mas teve desempenho pífio",
+                    "20/08/2019",
+                    "",
+                    "Fred Sabino",
+                    "Há dez anos, a Ferrari confirmou que Luca Badoer, então piloto de testes, seria o responsável por substituir Felipe Massa. Em recuperação do sério acidente sofrido nos treinos para o GP da Hungria, o brasileiro seguiria fora das pistas até o fim da temporada para se recuperar das lesões na testa. A notícia frustrou os fãs de Michael Schumacher, que tinha sido o escolhido pela equipe italiana mas não se mostrou apto a correr devido a dores no pescoço oriundas de um acidente de moto no começo daquele ano. Sem Massa e Schumacher, a Ferrari teve de recorrer ao veterano Badoer, que, aos 38 anos, já era integrante da equipe havia muito tempo, mas não corria desde 1999. O resultado foi não menos do que desastroso...");
+
+            allnews[i] = n;
+        }
+
         Fragment featured = new FeaturedFragment("Novato, Lando Norris destaca pressão de pilotar pela McLaren: \"Totalmente insana\"", "Em sua primeira temporada na principal categoria do automobilismo mundial, Norris se vê em busca de corresponder às expectativas no começo e ajudar nos ajustes do carro");
         Fragment news1 = new NewsFragment(this, "Aval do campeão", "Mercedes consulta Lewis Hamilton para decidir se mantém Valtteri Bottas na equipe em 2020");
         Fragment news2 = new NewsFragment(this, "Tensão", "Leclerc fala sobre Verstappen: \"Quando crianças, nem nos despedíamos\"");
