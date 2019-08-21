@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,11 +17,13 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class MainActivity extends    AppCompatActivity
-                          implements BottomNavigationView.OnNavigationItemSelectedListener {
-
+                          implements BottomNavigationView.OnNavigationItemSelectedListener,
+                                     FetchDataAsyncTask.OnJSONResponse {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,10 @@ public class MainActivity extends    AppCompatActivity
     }
 
     private void testing() {
-        News[] allnews = new News[10];
+        FetchDataAsyncTask fetchDataAsyncTask = new FetchDataAsyncTask(this);
+        fetchDataAsyncTask.execute("https://jsonplaceholder.typicode.com/posts");
+
+        /*News[] allnews = new News[10];
 
         for(int i=0; i<10; i++) {
             News n = new News("Da chance de substituir Felipe Massa ao fracasso retumbante: a saga de Luca Badoer na Ferrari",
@@ -102,7 +108,29 @@ public class MainActivity extends    AppCompatActivity
         fragments[4] = doublenews1;
         fragments[5] = news4;
 
-        openFragment(fragments);
+        openFragment(fragments);*/
+    }
+
+    private void onDataLoad() {
+    }
+
+    public void onResponse(String result) {
+        JSONArray jarray;
+
+        try {
+            jarray = new JSONArray(result);
+
+            for(int i=0; i < jarray.length(); i++) {
+                JSONObject jobj = jarray.getJSONObject(i);
+
+                Log.d("DBG", "USER ID: "+jobj.getString("userId"));
+                Log.d("DBG", "ID: "+jobj.getString("id"));
+                Log.d("DBG", "TITLE: "+jobj.getString("title"));
+                Log.d("DBG", "BODY: "+jobj.getString("body"));
+            }
+        } catch(Exception e) {
+            Log.d("DBG", e.getMessage());
+        }
     }
 
     private BottomNavigationView mBottomNavigationView;
