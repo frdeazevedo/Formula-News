@@ -78,7 +78,7 @@ public class MainActivity extends    AppCompatActivity
 
     private void testing() {
         FetchDataAsyncTask fetchDataAsyncTask = new FetchDataAsyncTask(this);
-        fetchDataAsyncTask.execute("https://jsonplaceholder.typicode.com/posts");
+        fetchDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
 
         /*News[] allnews = new News[10];
 
@@ -123,9 +123,12 @@ public class MainActivity extends    AppCompatActivity
             for(int i=0; i < jarray.length(); i++) {
                 JSONObject jobj = jarray.getJSONObject(i);
 
-                Log.d("DBG", "USER ID: "+jobj.getString("userId"));
                 Log.d("DBG", "ID: "+jobj.getString("id"));
-                Log.d("DBG", "TITLE: "+jobj.getString("title"));
+                Log.d("DBG", "HEADER: "+jobj.getString("header"));
+                Log.d("DBG", "INTRO: "+jobj.getString("intro"));
+                Log.d("DBG", "PB_DATE: "+jobj.getString("published_date"));
+                Log.d("DBG", "UP_DATE: "+jobj.getString("updated_date"));
+                Log.d("DBG", "AUTHOR: "+jobj.getString("author"));
                 Log.d("DBG", "BODY: "+jobj.getString("body"));
             }
         } catch(Exception e) {

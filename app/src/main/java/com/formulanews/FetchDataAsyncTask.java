@@ -52,17 +52,19 @@ public class FetchDataAsyncTask extends AsyncTask<String, String, String> {
             while((line = reader.readLine()) != null) {
                 buffer.append(line+"\n");
             }
+
+            Log.d("DBG", "teste");
         } catch(MalformedURLException e) {
             e.printStackTrace();
         } catch(IOException e) {
             e.printStackTrace();
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.disconnect();
             }
 
             try {
-                if(reader != null) {
+                if (reader != null) {
                     reader.close();
                 }
             } catch (IOException e) {
