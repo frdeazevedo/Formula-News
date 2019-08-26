@@ -2,13 +2,21 @@ package com.formulanews;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class NewsFragment extends    Fragment
                           implements View.OnClickListener {
@@ -21,6 +29,12 @@ public class NewsFragment extends    Fragment
 
         TextView fullnews = view.findViewById(R.id.text_view_news);
         fullnews.setText(this.mNews.mNewsIntro);
+
+        if(this.mNews.mNewsImageHeader != null) {
+            ImageView newsimage = view.findViewById(R.id.image_view_header);
+            DownloadImageTask dlImageTask = new DownloadImageTask(newsimage);
+            dlImageTask.execute(this.mNews.mNewsImageHeader);
+        }
 
         view.setOnClickListener(this);
 
@@ -59,4 +73,30 @@ public class NewsFragment extends    Fragment
     public static final String NEWSFRAGMENT_PUBLISHED_DATE = "com.formulanews.NEWSFRAGMENT_PUBLISHED_DATE";
     public static final String NEWSFRAGMENT_UPDATED_DATE = "com.formulanews.NEWSFRAGMENT_UPDATE_DATE";
     public static final String NEWSFRAGMENT_ID = "com.formulanews.NEWSFRAGMENT_ID";
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageTask(ImageView imgview) {
+            this.imageView = imgview;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap image = null;
+
+            try {
+                InputStream inputstream = new java.net.URL(urldisplay).openStream();
+                image = BitmapFactory.decodeStream(inputstream);
+            } catch(IOException ioe) {
+                Log.e("DBG", ioe.toString());
+            }
+
+            return image;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            this.imageView.setImageBitmap(result);
+        }
+    }
 }

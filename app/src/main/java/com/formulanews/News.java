@@ -10,4 +10,5 @@ public class News {
     public String mNewsUpdatedDate;
     public String mNewsAuthor;
     public String mNewsBody;
+    public String mNewsImageHeader;
 }

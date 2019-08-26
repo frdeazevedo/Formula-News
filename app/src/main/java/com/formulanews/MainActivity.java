@@ -103,6 +103,10 @@ public class MainActivity extends    AppCompatActivity
                 news.mNewsAuthor = jobj.getString("author");
                 news.mNewsBody = jobj.getString("body");
 
+                if(jobj.has("image_header")) {
+                    news.mNewsImageHeader = jobj.getString("image_header");
+                }
+
                 this.mNewsList.add(news);
             }
 

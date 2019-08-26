@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="0.15">
+        android:layout_weight="0.30">
         <ImageView
             android:id="@+id/image_view_header"
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
     <RelativeLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="0.85">
+        android:layout_weight="0.70">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -50,7 +50,7 @@
                 android:textSize="14sp"
                 android:text="Bem-vindos a mais um episódio. Hoje falaremos com Miguel Xumaquer e sua vitoriosa carreira. Venha e ouça conosco a entrevista com o heptacampeão mundial de Fórmula 1, e agora estou enchendo linquiça porque não sei mais o que escrever nesse teste."
                 android:padding="3sp"
-                android:maxLines="6"
+                android:maxLines="9"
                 android:ellipsize="end"/>
         </LinearLayout>
     </RelativeLayout>
