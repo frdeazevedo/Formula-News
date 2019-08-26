@@ -27,6 +27,8 @@ public class NewsFragment extends    Fragment
         return view;
     }
 
+    public NewsFragment() {}
+
     public NewsFragment(Activity context, News news) {
         this.mContext = context;
         this.mNews = news;
@@ -47,8 +49,8 @@ public class NewsFragment extends    Fragment
         startActivity(intent);
     }
 
-    private Activity mContext;
-    private News mNews;
+    protected Activity mContext;
+    protected News mNews;
 
     public static final String NEWSFRAGMENT_HEADER = "com.formulanews.NEWSFRAGMENT_HEADER";
     public static final String NEWSFRAGMENT_BODY = "com.formulanews.NEWSFRAGMENT_BODY";

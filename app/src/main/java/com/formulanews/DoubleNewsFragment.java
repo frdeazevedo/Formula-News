@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-public class DoubleNewsFragment extends Fragment {
+public class DoubleNewsFragment extends NewsFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_double_news, container, false);
@@ -20,14 +20,12 @@ public class DoubleNewsFragment extends Fragment {
         TextView fullnews = (TextView)view.findViewById(R.id.text_view_double_news2);
         fullnews.setText(this.mNews.mNewsIntro);
 
+        view.setOnClickListener(this);
+
         return view;
     }
 
     public DoubleNewsFragment(Activity context, News news) {
-        this.mContext = context;
-        this.mNews = news;
+        super(context, news);
     }
-
-    private News mNews;
-    private Activity mContext;
 }
