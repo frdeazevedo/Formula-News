@@ -19,6 +19,7 @@
                 font-size: 115%;
                 font-weight: normal;
                 margin: 6px;
+                color: rgb(102, 102, 153);
             }
 
             p.news_author {

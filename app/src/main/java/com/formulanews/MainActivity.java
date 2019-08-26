@@ -46,6 +46,14 @@ public class MainActivity extends    AppCompatActivity
                 break;
             }
             case R.id.action_videos: {
+                List<Fragment> videos = new ArrayList<>();
+
+                videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+                videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+                videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+
+                this.openFragmentList(videos);
+
                 break;
             }
         }
