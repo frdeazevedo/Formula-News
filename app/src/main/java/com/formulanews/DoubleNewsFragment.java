@@ -1,5 +1,6 @@
 package com.formulanews;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +15,19 @@ public class DoubleNewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_double_news, container, false);
 
         TextView headline = (TextView)view.findViewById(R.id.text_view_double_news1);
-        headline.setText(this.mHeadline1);
+        headline.setText(this.mNews.mNewsHeader);
 
         TextView fullnews = (TextView)view.findViewById(R.id.text_view_double_news2);
-        fullnews.setText(this.mHeadline2);
+        fullnews.setText(this.mNews.mNewsIntro);
 
         return view;
     }
 
-    public DoubleNewsFragment(String headline1, String headline2) {
-        this.mHeadline1 = headline1;
-        this.mHeadline2 = headline2;
+    public DoubleNewsFragment(Activity context, News news) {
+        this.mContext = context;
+        this.mNews = news;
     }
 
-    private String mHeadline1;
-    private String mHeadline2;
+    private News mNews;
+    private Activity mContext;
 }

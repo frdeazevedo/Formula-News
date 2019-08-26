@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>_NEWS_HEADER_</h1>
+        <h2>_NEWS_INTRO_</h2>
+        <p>Author: _NEWS_AUTHOR_</p>
+        <p>_NEWS_PUBLISHED_DATE_</p>
+        <p>_NEWS_UPDATED_DATE_</p>
+        <p>_NEWS_BODY_</p>
+    </body>
+</html>

@@ -34,7 +34,7 @@
             android:textStyle="bold"
             android:text="Featured News"
             android:paddingTop="8sp"
-            android:maxLines="2"
+            android:maxLines="4"
             android:ellipsize="end"/>
         <TextView
             style="@android:style/TextAppearance.Small"
@@ -44,7 +44,7 @@
             android:textColor="#fff"
             android:text="Featured News"
             android:textStyle="italic"
-            android:maxLines="3"
+            android:maxLines="6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:ellipsize="end"/>

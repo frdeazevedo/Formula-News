@@ -8,6 +8,11 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class NewsActivity extends AppCompatActivity {
 
     @Override
@@ -17,7 +22,50 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
 
         this.mWebView = findViewById(R.id.webview_content);
-        this.mWebView.loadData("<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>", "text/html;charset=utf-8", "UTF-8");
+
+        String html = this.generateHtml();
+        Log.d("DBG", html);
+
+        this.mWebView.loadData(html, "text/html; charset=UTF-8", "UTF-8");
+    }
+
+    private String generateHtml() {
+        String html = "";
+
+        try {
+            InputStream inputStream = getResources().openRawResource(getResources().getIdentifier("news_template", "raw", this.getPackageName()));
+            html = readTextFile(inputStream);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = getIntent();
+
+        html = html.replaceAll("_NEWS_HEADER_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_HEADER));
+        html = html.replaceAll("_NEWS_INTRO_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_INTRO));
+        html = html.replaceAll("_NEWS_AUTHOR_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_AUTHOR));
+        html = html.replaceAll("_NEWS_PUBLISHED_DATE_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_PUBLISHED_DATE));
+        html = html.replaceAll("_NEWS_UPDATED_DATE_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_UPDATED_DATE));
+        html = html.replaceAll("_NEWS_BODY_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_BODY));
+
+        return html;
+    }
+
+    public String readTextFile(InputStream inputStream) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte buf[] = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buf)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+
+        }
+        return outputStream.toString();
     }
 
     private WebView mWebView;
