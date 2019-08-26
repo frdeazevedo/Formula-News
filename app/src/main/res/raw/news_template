@@ -2,13 +2,37 @@
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
     <head>
+        <style>
+            h1 {
+                font-size: 150%;
+                font-weight: bold;
+            }
+            h2 {
+                font-style: italic;
+                font-size: 115%;
+                font-weight: normal;
+            }
+
+            p.news_author {
+                font-size: 80%;
+            }
+
+            p.news_date {
+                font-size: 75%;
+            }
+
+            p.news_body {
+                text-align: justify;
+                font-size: 100%;
+            }
+        </style>
     </head>
     <body>
         <h1>_NEWS_HEADER_</h1>
         <h2>_NEWS_INTRO_</h2>
-        <p>Author: _NEWS_AUTHOR_</p>
-        <p>_NEWS_PUBLISHED_DATE_</p>
-        <p>_NEWS_UPDATED_DATE_</p>
-        <p>_NEWS_BODY_</p>
+        <p class="news_author">_NEWS_AUTHOR_</p>
+        <p class="news_date">_NEWS_PUBLISHED_DATE_</p>
+        <p class="news_date">_NEWS_UPDATED_DATE_</p>
+        <p class="news_body">_NEWS_BODY_</p>
     </body>
 </html>

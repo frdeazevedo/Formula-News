@@ -36,28 +36,7 @@ public class MainActivity extends    AppCompatActivity
 
         switch(item.getItemId()) {
             case R.id.action_news: {
-                if(this.mNewsList != null) {
-                    List<Fragment> fragmentList = new ArrayList<>();
-
-                    fragmentList.add(new FeaturedFragment(this, this.mNewsList.get(0)));
-
-                    int doublenews_counter = 0;
-
-                    for(int i=1; i<this.mNewsList.size(); i++) {
-                        if(doublenews_counter == 2) {
-                            doublenews_counter = 0;
-
-                            fragmentList.add(new DoubleNewsFragment(this, this.mNewsList.get(i)));
-                        } else {
-                            fragmentList.add(new NewsFragment(this, this.mNewsList.get(i)));
-                        }
-
-                        doublenews_counter++;
-                    }
-
-                    this.openFragmentList(fragmentList);
-                }
-
+                this.openNews();
                 break;
             }
             case R.id.action_standings: {
@@ -127,9 +106,33 @@ public class MainActivity extends    AppCompatActivity
                 this.mNewsList.add(news);
             }
 
-
+            this.openNews();
         } catch(Exception e) {
             Log.d("DBG", e.getMessage());
+        }
+    }
+
+    private void openNews() {
+        if(this.mNewsList != null) {
+            List<Fragment> fragmentList = new ArrayList<>();
+
+            fragmentList.add(new FeaturedFragment(this, this.mNewsList.get(0)));
+
+            int doublenews_counter = 0;
+
+            for(int i=1; i<this.mNewsList.size(); i++) {
+                if(doublenews_counter == 2) {
+                    doublenews_counter = 0;
+
+                    fragmentList.add(new DoubleNewsFragment(this, this.mNewsList.get(i)));
+                } else {
+                    fragmentList.add(new NewsFragment(this, this.mNewsList.get(i)));
+                }
+
+                doublenews_counter++;
+            }
+
+            this.openFragmentList(fragmentList);
         }
     }
 
