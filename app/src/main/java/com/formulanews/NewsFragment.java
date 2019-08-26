@@ -74,7 +74,7 @@ public class NewsFragment extends    Fragment
     public static final String NEWSFRAGMENT_UPDATED_DATE = "com.formulanews.NEWSFRAGMENT_UPDATE_DATE";
     public static final String NEWSFRAGMENT_ID = "com.formulanews.NEWSFRAGMENT_ID";
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    protected class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;
 
         public DownloadImageTask(ImageView imgview) {
@@ -96,7 +96,9 @@ public class NewsFragment extends    Fragment
         }
 
         protected void onPostExecute(Bitmap result) {
-            this.imageView.setImageBitmap(result);
+            if(result != null) {
+                this.imageView.setImageBitmap(result);
+            }
         }
     }
 }
