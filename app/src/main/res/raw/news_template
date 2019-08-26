@@ -25,6 +25,12 @@
                 text-align: justify;
                 font-size: 100%;
             }
+
+            img {
+                max-width: 100%;
+                margin-bottom: 5px;
+                margin-top: 5px;
+            }
         </style>
     </head>
     <body>
