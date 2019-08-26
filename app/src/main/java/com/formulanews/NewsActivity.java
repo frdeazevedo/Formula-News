@@ -24,7 +24,6 @@ public class NewsActivity extends AppCompatActivity {
         this.mWebView = findViewById(R.id.webview_content);
 
         String html = this.generateHtml();
-        Log.d("DBG", html);
 
         this.mWebView.loadData(html, "text/html; charset=UTF-8", "UTF-8");
     }
@@ -40,6 +39,12 @@ public class NewsActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
+
+        if(intent.getStringExtra(NewsFragment.NEWSFRAGMENT_IMAGE_HEADER) != null) {
+            html = html.replaceAll("_NEWS_IMAGE_HEADER_", "<img src='"+intent.getStringExtra(NewsFragment.NEWSFRAGMENT_IMAGE_HEADER)+"'/>");
+        } else {
+            html = html.replaceAll("_NEWS_IMAGE_HEADER_", "");
+        }
 
         html = html.replaceAll("_NEWS_HEADER_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_HEADER));
         html = html.replaceAll("_NEWS_INTRO_", intent.getStringExtra(NewsFragment.NEWSFRAGMENT_INTRO));

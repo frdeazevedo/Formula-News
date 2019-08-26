@@ -27,7 +27,10 @@ public class MainActivity extends    AppCompatActivity
         setContentView(R.layout.activity_main);
 
         this.initGui();
-        this.testing();
+
+        //Fetches the JSON of the news
+        FetchDataAsyncTask fetchDataAsyncTask = new FetchDataAsyncTask(this);
+        fetchDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
     }
 
     @Override
@@ -71,14 +74,6 @@ public class MainActivity extends    AppCompatActivity
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(f).commit();
         }
-    }
-
-    private void testing() {
-        FetchDataAsyncTask fetchDataAsyncTask = new FetchDataAsyncTask(this);
-        fetchDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
-    }
-
-    private void onDataLoad() {
     }
 
     /*

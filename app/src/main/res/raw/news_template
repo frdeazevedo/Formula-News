@@ -3,27 +3,38 @@
 <html>
     <head>
         <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
             h1 {
                 font-size: 150%;
                 font-weight: bold;
+                margin: 6px;
             }
             h2 {
                 font-style: italic;
                 font-size: 115%;
                 font-weight: normal;
+                margin: 6px;
             }
 
             p.news_author {
                 font-size: 80%;
+                margin: 6px;
             }
 
             p.news_date {
                 font-size: 75%;
+                margin: 6px;
             }
 
             p.news_body {
                 text-align: justify;
                 font-size: 100%;
+                margin: 6px;
             }
 
             img {
@@ -31,9 +42,21 @@
                 margin-bottom: 5px;
                 margin-top: 5px;
             }
+
+            div.news_image_header {
+                width: 100%;
+                max-height: 25%;
+                overflow: hidden;
+            }
+
+            div.news_image_header img {
+                margin: 0px;
+                padding: 0px;
+            }
         </style>
     </head>
     <body>
+        <div class="news_image_header">_NEWS_IMAGE_HEADER_</div>
         <h1>_NEWS_HEADER_</h1>
         <h2>_NEWS_INTRO_</h2>
         <p class="news_author">_NEWS_AUTHOR_</p>

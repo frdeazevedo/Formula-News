@@ -59,6 +59,7 @@ public class NewsFragment extends    Fragment
         intent.putExtra(NEWSFRAGMENT_AUTHOR, this.mNews.mNewsAuthor);
         intent.putExtra(NEWSFRAGMENT_PUBLISHED_DATE, this.mNews.mNewsPublishedDate);
         intent.putExtra(NEWSFRAGMENT_UPDATED_DATE, this.mNews.mNewsUpdatedDate);
+        intent.putExtra(NEWSFRAGMENT_IMAGE_HEADER, this.mNews.mNewsImageHeader);
 
         startActivity(intent);
     }
@@ -73,6 +74,7 @@ public class NewsFragment extends    Fragment
     public static final String NEWSFRAGMENT_PUBLISHED_DATE = "com.formulanews.NEWSFRAGMENT_PUBLISHED_DATE";
     public static final String NEWSFRAGMENT_UPDATED_DATE = "com.formulanews.NEWSFRAGMENT_UPDATE_DATE";
     public static final String NEWSFRAGMENT_ID = "com.formulanews.NEWSFRAGMENT_ID";
+    public static final String NEWSFRAGMENT_IMAGE_HEADER = "com.formulanews.NEWSFRAGMENT_IMAGE_HEADER";
 
     protected class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;
