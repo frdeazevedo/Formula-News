@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000"
                 android:textSize="22sp"
-                android:text="Fórmula 1 - Além do grid"
                 android:padding="3sp"
                 android:maxLines="3"
                 android:ellipsize="end"/>
@@ -48,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="#555"
                 android:textSize="14sp"
-                android:text="Bem-vindos a mais um episódio. Hoje falaremos com Miguel Xumaquer e sua vitoriosa carreira. Venha e ouça conosco a entrevista com o heptacampeão mundial de Fórmula 1, e agora estou enchendo linquiça porque não sei mais o que escrever nesse teste."
                 android:padding="3sp"
                 android:maxLines="9"
                 android:ellipsize="end"/>

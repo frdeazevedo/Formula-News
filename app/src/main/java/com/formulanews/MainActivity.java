@@ -37,6 +37,7 @@ public class MainActivity extends    AppCompatActivity
         FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
         fetchNewsDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
 
+        //Fetches the JSON of the videos
         FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
         fetchVideosDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
     }
@@ -77,8 +78,6 @@ public class MainActivity extends    AppCompatActivity
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
-        Log.d("DBG", "Requested Service: "+requestedService);
 
         if(requestedService.equals("news")) {
             this.mNewsList = new ArrayList<>();
@@ -128,6 +127,8 @@ public class MainActivity extends    AppCompatActivity
             } catch(Exception e) {
                     Log.e("DBG", e.toString());
             }
+        } else if(requestedService.equals("standings")) {
+
         }
     }
 
