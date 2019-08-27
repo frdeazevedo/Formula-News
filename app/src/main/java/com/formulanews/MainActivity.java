@@ -46,42 +46,12 @@ public class MainActivity extends    AppCompatActivity
                 break;
             }
             case R.id.action_videos: {
-                List<Fragment> videos = new ArrayList<>();
-
-                videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
-                videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
-                videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
-
-                this.openFragmentList(videos);
-
+                this.openVideos();
                 break;
             }
         }
 
         return true;
-    }
-
-    public void initGui() {
-        this.mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
-    }
-
-    private void openFragmentList(List<Fragment> fragmentList) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        int i=0;
-        for(Fragment f:fragmentList) {
-            i++;
-            transaction.add(R.id.container, f, "Fragment"+i);
-        }
-
-        transaction.commit();
-    }
-
-    private void closeAllFragments() {
-        for (Fragment f : getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(f).commit();
-        }
     }
 
     /*
@@ -119,6 +89,11 @@ public class MainActivity extends    AppCompatActivity
         }
     }
 
+    public void initGui() {
+        this.mBottomNavigationView = findViewById(R.id.bottom_navigation);
+        this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
+    }
+
     private void openNews() {
         if(this.mNewsList != null) {
             List<Fragment> fragmentList = new ArrayList<>();
@@ -140,6 +115,34 @@ public class MainActivity extends    AppCompatActivity
             }
 
             this.openFragmentList(fragmentList);
+        }
+    }
+
+    private void openVideos() {
+        List<Fragment> videos = new ArrayList<>();
+
+        videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+        videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+        videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+
+        this.openFragmentList(videos);
+    }
+
+    private void openFragmentList(List<Fragment> fragmentList) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        int i=0;
+        for(Fragment f:fragmentList) {
+            i++;
+            transaction.add(R.id.container, f, "Fragment"+i);
+        }
+
+        transaction.commit();
+    }
+
+    private void closeAllFragments() {
+        for (Fragment f : getSupportFragmentManager().getFragments()) {
+            getSupportFragmentManager().beginTransaction().remove(f).commit();
         }
     }
 
