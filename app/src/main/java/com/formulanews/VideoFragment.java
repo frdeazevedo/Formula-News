@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,9 +35,9 @@ public class VideoFragment extends Fragment
         TextView description = view.findViewById(R.id.text_view_video_description);
         description.setText(this.mVideoDescription);
 
-        ImageView thumbnail = view.findViewById(R.id.image_view_video_thumbnail);
-        VideoFragment.DownloadImageTask dlImageTask = new VideoFragment.DownloadImageTask(thumbnail);
-        dlImageTask.execute("http://img.youtube.com/vi/"+this.mVideoId+ "/0.jpg");
+        //Initializes the YouTube thumbnail view
+        com.google.android.youtube.player.YouTubeThumbnailView youTubeThumbnailView = view.findViewById(R.id.youtube_thumbnail);
+        youTubeThumbnailView.initialize(VideoFragment.YOUTUBE_DEVELOPER_KEY, new YouTubeThumbailWrapper(this.mVideoId));
 
         view.setOnClickListener(this);
 
@@ -43,7 +46,7 @@ public class VideoFragment extends Fragment
 
     @Override
     public void onClick(View view) {
-        Intent intent = YouTubeStandalonePlayer.createVideoIntent(this.mContext, "AIzaSyA2TRuQcNKeeQalMCLyBBFggr4uem6V2JI", this.mVideoId);
+        Intent intent = YouTubeStandalonePlayer.createVideoIntent(this.mContext, VideoFragment.YOUTUBE_DEVELOPER_KEY, this.mVideoId);
         startActivity(intent);
     }
 
@@ -81,6 +84,39 @@ public class VideoFragment extends Fragment
             }
         }
     }
+
+    //YouTube thumbnail view's listener
+    protected class YouTubeThumbailWrapper implements YouTubeThumbnailView.OnInitializedListener {
+        public YouTubeThumbailWrapper(String videoId) {
+            this.mYouTubeVideoId = videoId;
+        }
+
+        @Override
+        public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
+            youTubeThumbnailLoader.setVideo(this.mYouTubeVideoId);
+
+            youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                @Override
+                public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                    youTubeThumbnailLoader.release();
+                }
+
+                @Override
+                public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+                    Log.e("DBG", errorReason.toString());
+                }
+            });
+        }
+
+        @Override
+        public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+            Log.e("DBG", youTubeInitializationResult.toString());
+        }
+
+        private String mYouTubeVideoId;
+    }
+
+    public static final String YOUTUBE_DEVELOPER_KEY = "AIzaSyA2TRuQcNKeeQalMCLyBBFggr4uem6V2JI";
 
     private String mVideoHeadline;
     private String mVideoDescription;
