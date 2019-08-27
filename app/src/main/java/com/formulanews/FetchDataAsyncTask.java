@@ -12,10 +12,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class FetchDataAsyncTask extends AsyncTask<String, String, String> {
-    public FetchDataAsyncTask(OnJSONResponse handler) {
+    public FetchDataAsyncTask(OnJSONResponse handler, String url) {
         super();
 
         this.mHandler = handler;
+        this.mUrl = url;
     }
 
     @Override
@@ -79,12 +80,13 @@ public class FetchDataAsyncTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        this.mHandler.onResponse(result);
+        this.mHandler.onResponse(this.mUrl, result);
     }
 
     public interface OnJSONResponse {
-        void onResponse(String response);
+        void onResponse(String query, String response);
     }
 
     private OnJSONResponse mHandler;
+    private String mUrl;
 }

@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +30,15 @@ public class MainActivity extends    AppCompatActivity
 
         this.initGui();
 
+        this.mNewsList = new ArrayList<>();
+        this.mVideosList = new ArrayList<>();
+
         //Fetches the JSON of the news
-        FetchDataAsyncTask fetchDataAsyncTask = new FetchDataAsyncTask(this);
-        fetchDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
+        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
+        fetchNewsDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
+
+        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
+        fetchVideosDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
     }
 
     @Override
@@ -57,35 +65,69 @@ public class MainActivity extends    AppCompatActivity
     /*
      * Response after querying JSON web service
      */
-    public void onResponse(String result) {
+    public void onResponse(String url, String result) {
         JSONArray jarray;
-        this.mNewsList= new ArrayList<>();
+
+        String requestedService = null;
 
         try {
-            jarray = new JSONArray(result);
+            URI uri = new URI(url);
+            String path = uri.getPath();
+            requestedService = path.substring(path.lastIndexOf("/")+1);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
-            for(int i=0; i < jarray.length(); i++) {
-                JSONObject jobj = jarray.getJSONObject(i);
+        Log.d("DBG", "Requested Service: "+requestedService);
 
-                News news = new News();
-                news.mNewsId = jobj.getString("id");
-                news.mNewsHeader = jobj.getString("header");
-                news.mNewsIntro = jobj.getString("intro");
-                news.mNewsPublishedDate = jobj.getString("published_date");
-                news.mNewsUpdatedDate = jobj.getString("updated_date");
-                news.mNewsAuthor = jobj.getString("author");
-                news.mNewsBody = jobj.getString("body");
+        if(requestedService.equals("news")) {
+            this.mNewsList = new ArrayList<>();
 
-                if(jobj.has("image_header")) {
-                    news.mNewsImageHeader = jobj.getString("image_header");
+            try {
+                jarray = new JSONArray(result);
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jobj = jarray.getJSONObject(i);
+
+                    News news = new News();
+                    news.mNewsId = jobj.getString("id");
+                    news.mNewsHeader = jobj.getString("header");
+                    news.mNewsIntro = jobj.getString("intro");
+                    news.mNewsPublishedDate = jobj.getString("published_date");
+                    news.mNewsUpdatedDate = jobj.getString("updated_date");
+                    news.mNewsAuthor = jobj.getString("author");
+                    news.mNewsBody = jobj.getString("body");
+
+                    if (jobj.has("image_header")) {
+                        news.mNewsImageHeader = jobj.getString("image_header");
+                    }
+
+                    this.mNewsList.add(news);
                 }
 
-                this.mNewsList.add(news);
+                this.openNews();
+            } catch (Exception e) {
+                Log.d("DBG", e.getMessage());
             }
+        } else if(requestedService.equals("videos")) {
+            this.mVideosList = new ArrayList<>();
 
-            this.openNews();
-        } catch(Exception e) {
-            Log.d("DBG", e.getMessage());
+            try {
+                jarray = new JSONArray(result);
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jobj = jarray.getJSONObject(i);
+
+                    Video video = new Video();
+                    video.mVideoTitle = jobj.getString("title");
+                    video.mVideoDescription = jobj.getString("description");
+                    video.mVideoId = jobj.getString("id");
+
+                    this.mVideosList.add(video);
+                }
+            } catch(Exception e) {
+                    Log.e("DBG", e.toString());
+            }
         }
     }
 
@@ -121,9 +163,9 @@ public class MainActivity extends    AppCompatActivity
     private void openVideos() {
         List<Fragment> videos = new ArrayList<>();
 
-        videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
-        videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
-        videos.add(new VideoFragment(this, "Headline 1", "Description 1", "kPLERiLolz4"));
+        for(Video v:this.mVideosList) {
+            videos.add(new VideoFragment(this, v.mVideoTitle, v.mVideoDescription, v.mVideoId));
+        }
 
         this.openFragmentList(videos);
     }
@@ -148,4 +190,5 @@ public class MainActivity extends    AppCompatActivity
 
     private BottomNavigationView mBottomNavigationView;
     private List<News> mNewsList;
+    private List<Video> mVideosList;
 }
