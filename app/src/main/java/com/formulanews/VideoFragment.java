@@ -116,7 +116,7 @@ public class VideoFragment extends Fragment
         private String mYouTubeVideoId;
     }
 
-    public static final String YOUTUBE_DEVELOPER_KEY = "AIzaSyA2TRuQcNKeeQalMCLyBBFggr4uem6V2JI";
+    public static final String YOUTUBE_DEVELOPER_KEY = BuildConfig.YOUTUBE_DEVELOPER_KEY;
 
     private String mVideoHeadline;
     private String mVideoDescription;
