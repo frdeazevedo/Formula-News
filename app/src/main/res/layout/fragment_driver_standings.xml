@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DriverStandingsFragment"
-    android:background="#ff0"
     android:orientation="vertical">
 
     <TextView
