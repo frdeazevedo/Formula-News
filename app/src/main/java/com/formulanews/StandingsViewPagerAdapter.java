@@ -19,7 +19,7 @@ public class StandingsViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new DriverStandingsFragment(this.mDrivers);
             case 1:
-                return new ConstructorStandings();
+                return new ConstructorStandings(this.mConstructors);
         }
 
         return null;
@@ -46,5 +46,10 @@ public class StandingsViewPagerAdapter extends FragmentPagerAdapter {
         this.mDrivers = drivers;
     }
 
+    public void setConstructorList(List<Constructor> constructors) {
+        this.mConstructors = constructors;
+    }
+
     private List<Driver> mDrivers;
+    private List<Constructor> mConstructors;
 }

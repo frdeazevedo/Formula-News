@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ConstructorStandings">
+    tools:context=".DriverStandingsFragment"
+    android:orientation="vertical">
 
-    <TextView
+    <WebView
+        android:id="@+id/webview_constructor_standings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Constructor Standings Fragment LOADED" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

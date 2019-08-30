@@ -37,7 +37,7 @@ public class Driver {
         this.mState = state;
     }
 
-    public void setConstructor(Constructor constructor) {
+    public void setConstructor(String constructor) {
         this.mConstructor = constructor;
     }
 
@@ -65,7 +65,7 @@ public class Driver {
         return this.mState;
     }
 
-    public Constructor getmConstructor() {
+    public String getmConstructor() {
         return this.mConstructor;
     }
 
@@ -78,6 +78,6 @@ public class Driver {
     private String mSurname;
     private String mCountry;
     private String mState;
-    private Constructor mConstructor;
+    private String mConstructor;
     private String mPoints;
 }
