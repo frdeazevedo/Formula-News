@@ -4,16 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -52,6 +55,9 @@ public class MainActivity extends    AppCompatActivity
                 break;
             }
             case R.id.action_standings: {
+                List<Fragment> l = new ArrayList<>();
+                l.add(new StandingsFragment());
+                this.openFragmentList(l);
                 break;
             }
             case R.id.action_videos: {
@@ -184,6 +190,8 @@ public class MainActivity extends    AppCompatActivity
     }
 
     private void closeAllFragments() {
+        Log.d("DBG", "closing all fragments");
+
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(f).commit();
         }
