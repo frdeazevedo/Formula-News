@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,8 +21,8 @@ import com.google.android.material.tabs.TabLayout;
 public class StandingsFragment extends Fragment {
 
 
-    public StandingsFragment() {
-        // Required empty public constructor
+    public StandingsFragment(List<Driver> drivers) {
+        this.mDrivers = drivers;
     }
 
 
@@ -29,8 +31,12 @@ public class StandingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_standings, container, false);
 
+        StandingsViewPagerAdapter standingsViewPagerAdapter = new StandingsViewPagerAdapter(getChildFragmentManager());
+        standingsViewPagerAdapter.setDriverList(this.mDrivers);
+
         ViewPager viewPager = view.findViewById(R.id.standings_view_pager);
-        viewPager.setAdapter(new StandingsViewPagerAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(standingsViewPagerAdapter);
+
 
         TabLayout tabLayout = view.findViewById(R.id.standings_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
@@ -38,4 +44,5 @@ public class StandingsFragment extends Fragment {
         return view;
     }
 
+    List<Driver> mDrivers;
 }

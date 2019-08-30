@@ -26,41 +26,8 @@ import java.util.List;
 public class DriverStandingsFragment extends Fragment {
 
 
-    public DriverStandingsFragment() {
-        this.mDrivers = new ArrayList<>();
-
-        Driver d1 = new Driver();
-        d1.setFirstName("Lewis");
-        d1.setSurname("Hamilton");
-        d1.setCountry("England");
-        d1.setConstructor(new Constructor("Mercedes"));
-        d1.setPoints("250");
-
-        Driver d2 = new Driver();
-        d2.setFirstName("Valtteri");
-        d2.setSurname("Bottas");
-        d2.setCountry("Finland");
-        d2.setConstructor(new Constructor("Mercedes"));
-        d2.setPoints("189");
-
-        Driver d3 = new Driver();
-        d3.setFirstName("Sebastian");
-        d3.setSurname("Vettel");
-        d3.setCountry("Germany");
-        d3.setConstructor(new Constructor("Ferrari"));
-        d3.setPoints("181");
-
-        Driver d4 = new Driver();
-        d4.setFirstName("Charles");
-        d4.setSurname("Leclerc");
-        d4.setCountry("Monaco");
-        d4.setConstructor(new Constructor("Ferrari"));
-        d4.setPoints("153");
-
-        this.mDrivers.add(d1);
-        this.mDrivers.add(d2);
-        this.mDrivers.add(d3);
-        this.mDrivers.add(d4);
+    public DriverStandingsFragment(List<Driver> drivers) {
+        this.mDrivers = drivers;
     }
 
 

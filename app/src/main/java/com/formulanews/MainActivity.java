@@ -43,6 +43,10 @@ public class MainActivity extends    AppCompatActivity
         //Fetches the JSON of the videos
         FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
         fetchVideosDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
+
+        //Fetches the JSON of the drivers standings
+        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/driver_standings");
+        fetchDriverStandingsDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/driver_standings");
     }
 
     @Override
@@ -56,7 +60,7 @@ public class MainActivity extends    AppCompatActivity
             }
             case R.id.action_standings: {
                 List<Fragment> l = new ArrayList<>();
-                l.add(new StandingsFragment());
+                l.add(new StandingsFragment(this.mDriversList));
                 this.openFragmentList(l);
                 break;
             }
@@ -133,8 +137,27 @@ public class MainActivity extends    AppCompatActivity
             } catch(Exception e) {
                     Log.e("DBG", e.toString());
             }
-        } else if(requestedService.equals("standings")) {
+        } else if(requestedService.equals("driver_standings")) {
+            this.mDriversList = new ArrayList<>();
 
+            try {
+                jarray = new JSONArray(result);
+
+                for(int i=0; i < jarray.length(); i++) {
+                    JSONObject jobj = jarray.getJSONObject(i);
+
+                    Driver driver = new Driver();
+                    driver.setFirstName(jobj.getString("first_name"));
+                    driver.setSurname(jobj.getString("last_name"));
+                    driver.setConstructor(new Constructor(jobj.getString("constructor")));
+                    driver.setPoints(jobj.getString("points"));
+                    driver.setAbbreviatedName(jobj.getString("abbreviated_name"));
+
+                    this.mDriversList.add(driver);
+                }
+            } catch(Exception e) {
+                Log.e("DBG", e.toString());
+            }
         }
     }
 
@@ -198,4 +221,5 @@ public class MainActivity extends    AppCompatActivity
     private BottomNavigationView mBottomNavigationView;
     private List<News> mNewsList;
     private List<Video> mVideosList;
+    private List<Driver> mDriversList;
 }

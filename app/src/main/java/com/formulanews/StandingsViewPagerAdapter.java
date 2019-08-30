@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.util.List;
+
 public class StandingsViewPagerAdapter extends FragmentPagerAdapter {
     public StandingsViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -15,7 +17,7 @@ public class StandingsViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return new DriverStandingsFragment();
+                return new DriverStandingsFragment(this.mDrivers);
             case 1:
                 return new ConstructorStandings();
         }
@@ -39,4 +41,10 @@ public class StandingsViewPagerAdapter extends FragmentPagerAdapter {
 
         return null;
     }
+
+    public void setDriverList(List<Driver> drivers) {
+        this.mDrivers = drivers;
+    }
+
+    private List<Driver> mDrivers;
 }
