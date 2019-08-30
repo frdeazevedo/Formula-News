@@ -190,8 +190,6 @@ public class MainActivity extends    AppCompatActivity
     }
 
     private void closeAllFragments() {
-        Log.d("DBG", "closing all fragments");
-
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(f).commit();
         }

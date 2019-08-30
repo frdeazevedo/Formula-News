@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+ <html>
+     <head>
+         <style>
+             html, body {
+                 height: 100%;
+                 margin: 0;
+                 padding: 0;
+             }
+
+             table {
+                 width: 100%;
+                 padding: 3px;
+                 font-weight: bold;
+                 border-collapse: collapse;
+             }
+
+             tr.standings_odd {
+                 color: rgb(255, 255, 255);
+                 background-color: rgb(64, 64, 64);
+             }
+
+             tr.standings_even {
+                 color: rgb(255, 255, 255);
+                 background-color: rgb(96, 96, 96);
+             }
+
+             td {
+                 padding: 10px;
+             }
+
+             td.standings_points {
+                text-align: right;
+             }
+
+             td.standings_position {
+                text-align: center;
+             }
+         </style>
+     </head>
+     <body>
+         <table>
+            _DRIVER_STANDINGS_
+         </table>
+     </body>
+ </html>
