@@ -37,20 +37,20 @@ public class MainActivity extends    AppCompatActivity
         this.mVideosList = new ArrayList<>();
 
         //Fetches the JSON of the news
-        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
-        fetchNewsDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/news");
+        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_NEWS);
+        fetchNewsDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_NEWS);
 
         //Fetches the JSON of the videos
-        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
-        fetchVideosDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos");
+        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_VIDEOS);
+        fetchVideosDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_VIDEOS);
 
         //Fetches the JSON of the drivers standings
-        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/driver_standings");
-        fetchDriverStandingsDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/driver_standings");
+        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
+        fetchDriverStandingsDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
 
         //Fetches the JSON of the drivers standings
-        FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, "https://my-json-server.typicode.com/frdeazevedo/fake_rest/constructor_standings");
-        fetchConstructorStandingsDataAsyncTask.execute("https://my-json-server.typicode.com/frdeazevedo/fake_rest/constructor_standings");
+        FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
+        fetchConstructorStandingsDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
     }
 
     @Override
@@ -76,7 +76,9 @@ public class MainActivity extends    AppCompatActivity
     }
 
     /*
-     * Response after querying JSON web service
+     * Response after querying JSON web service.
+     *     url is the URL that was queried
+     *     result is the JSON string result of the URL queried
      */
     public void onResponse(String url, String result) {
         JSONArray jarray;
@@ -249,4 +251,9 @@ public class MainActivity extends    AppCompatActivity
     private List<Video> mVideosList;
     private List<Driver> mDriversList;
     private List<Constructor> mConstructorsList;
+
+    private static final String FORMULANEWS_JSON_QUERY_NEWS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news";
+    private static final String FORMULANEWS_JSON_QUERY_VIDEOS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos";
+    private static final String FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/driver_standings";
+    private static final String FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/constructor_standings";
 }
