@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Formula News</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Formula S</string>
+    <string name="server_address">https://my-json-server.typicode.com/frdeazevedo/fake_rest/</string>
+    <string name="menu_news">Notícias</string>
+    <string name="menu_videos">Vídeos</string>
+    <string name="menu_standings">Tabelas</string>
 </resources>

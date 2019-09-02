@@ -9,6 +9,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -35,22 +38,23 @@ public class MainActivity extends    AppCompatActivity
 
         this.mNewsList = new ArrayList<>();
         this.mVideosList = new ArrayList<>();
+        this.mProgressBar.setVisibility(View.VISIBLE);
 
         //Fetches the JSON of the news
-        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_NEWS);
-        fetchNewsDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_NEWS);
+        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
+        fetchNewsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
 
         //Fetches the JSON of the videos
-        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_VIDEOS);
-        fetchVideosDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_VIDEOS);
+        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
+        fetchVideosDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
 
         //Fetches the JSON of the drivers standings
-        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
-        fetchDriverStandingsDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
+        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
+        fetchDriverStandingsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
 
         //Fetches the JSON of the drivers standings
-        FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, this.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
-        fetchConstructorStandingsDataAsyncTask.execute(this.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
+        FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
+        fetchConstructorStandingsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
     }
 
     @Override
@@ -81,7 +85,7 @@ public class MainActivity extends    AppCompatActivity
      *     result is the JSON string result of the URL queried
      */
     public void onResponse(String url, String result) {
-        JSONArray jarray;
+        this.mProgressBar.setVisibility(View.GONE);
 
         String requestedService = null;
 
@@ -91,101 +95,134 @@ public class MainActivity extends    AppCompatActivity
             requestedService = path.substring(path.lastIndexOf("/")+1);
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            Toast toast = new Toast(this);
+            toast.setText("Connection error.");
+            toast.show();
         }
 
-        if(requestedService.equals("news")) {
-            this.mNewsList = new ArrayList<>();
-
-            try {
-                jarray = new JSONArray(result);
-
-                for (int i = 0; i < jarray.length(); i++) {
-                    JSONObject jobj = jarray.getJSONObject(i);
-
-                    News news = new News();
-                    news.mNewsId = jobj.getString("id");
-                    news.mNewsHeader = jobj.getString("header");
-                    news.mNewsIntro = jobj.getString("intro");
-                    news.mNewsPublishedDate = jobj.getString("published_date");
-                    news.mNewsUpdatedDate = jobj.getString("updated_date");
-                    news.mNewsAuthor = jobj.getString("author");
-                    news.mNewsBody = jobj.getString("body");
-
-                    if (jobj.has("image_header")) {
-                        news.mNewsImageHeader = jobj.getString("image_header");
-                    }
-
-                    this.mNewsList.add(news);
-                }
-
-                this.openNews();
-            } catch (Exception e) {
-                Log.d("DBG", e.getMessage());
-            }
-        } else if(requestedService.equals("videos")) {
-            this.mVideosList = new ArrayList<>();
-
-            try {
-                jarray = new JSONArray(result);
-
-                for (int i = 0; i < jarray.length(); i++) {
-                    JSONObject jobj = jarray.getJSONObject(i);
-
-                    Video video = new Video();
-                    video.mVideoTitle = jobj.getString("title");
-                    video.mVideoDescription = jobj.getString("description");
-                    video.mVideoId = jobj.getString("id");
-
-                    this.mVideosList.add(video);
-                }
-            } catch(Exception e) {
-                    Log.e("DBG", e.toString());
-            }
-        } else if(requestedService.equals("driver_standings")) {
-            this.mDriversList = new ArrayList<>();
-
-            try {
-                jarray = new JSONArray(result);
-
-                for(int i=0; i < jarray.length(); i++) {
-                    JSONObject jobj = jarray.getJSONObject(i);
-
-                    Driver driver = new Driver();
-                    driver.setFirstName(jobj.getString("first_name"));
-                    driver.setSurname(jobj.getString("last_name"));
-                    driver.setConstructor(jobj.getString("constructor"));
-                    driver.setPoints(jobj.getString("points"));
-                    driver.setAbbreviatedName(jobj.getString("abbreviated_name"));
-
-                    this.mDriversList.add(driver);
-                }
-            } catch(Exception e) {
-                Log.e("DBG", e.toString());
-            }
-        } else if(requestedService.equals("constructor_standings")) {
-            this.mConstructorsList = new ArrayList<>();
-
-            try {
-                jarray = new JSONArray(result);
-
-                for(int i=0; i < jarray.length(); i++) {
-                    JSONObject jobj = jarray.getJSONObject(i);
-
-                    Constructor constructor = new Constructor();
-                    constructor.setName(jobj.getString("name"));
-                    constructor.setPoints(jobj.getString("points"));
-
-                    this.mConstructorsList.add(constructor);
-                }
-            } catch(Exception e) {
-                Log.e("DBG", e.toString());
-            }
+        switch(requestedService) {
+            case "news":
+                this.onNewsJSONQueryResponse(result);
+                break;
+            case "videos":
+                this.onVideosJSONQueryResponse(result);
+                break;
+            case "driver_standings":
+                this.onDriverStandingsJSONQueryResponse(result);
+                break;
+            case "constructor_standings":
+                this.onConstructorStandingsJSONQueryResponse(result);
+                break;
         }
     }
 
-    public void initGui() {
+    private void initGui() {
         this.mBottomNavigationView = findViewById(R.id.bottom_navigation);
         this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
+        this.mProgressBar = findViewById(R.id.progress_bar);
+    }
+
+    private void onNewsJSONQueryResponse(String result) {
+        this.mNewsList = new ArrayList<>();
+
+        JSONArray jarray;
+
+        try {
+            jarray = new JSONArray(result);
+
+            for (int i = 0; i < jarray.length(); i++) {
+                JSONObject jobj = jarray.getJSONObject(i);
+
+                News news = new News();
+                news.mNewsId = jobj.getString("id");
+                news.mNewsHeader = jobj.getString("header");
+                news.mNewsIntro = jobj.getString("intro");
+                news.mNewsPublishedDate = jobj.getString("published_date");
+                news.mNewsUpdatedDate = jobj.getString("updated_date");
+                news.mNewsAuthor = jobj.getString("author");
+                news.mNewsBody = jobj.getString("body");
+
+                if (jobj.has("image_header")) {
+                    news.mNewsImageHeader = jobj.getString("image_header");
+                }
+
+                this.mNewsList.add(news);
+            }
+
+            this.openNews();
+        } catch (Exception e) {
+            Log.d("DBG", e.getMessage());
+        }
+    }
+
+    private void onVideosJSONQueryResponse(String result) {
+        this.mVideosList = new ArrayList<>();
+
+        JSONArray jarray;
+
+        try {
+            jarray = new JSONArray(result);
+
+            for (int i = 0; i < jarray.length(); i++) {
+                JSONObject jobj = jarray.getJSONObject(i);
+
+                Video video = new Video();
+                video.mVideoTitle = jobj.getString("title");
+                video.mVideoDescription = jobj.getString("description");
+                video.mVideoId = jobj.getString("id");
+
+                this.mVideosList.add(video);
+            }
+        } catch(Exception e) {
+            Log.e("DBG", e.toString());
+        }
+    }
+
+    private void onDriverStandingsJSONQueryResponse(String result) {
+        this.mDriversList = new ArrayList<>();
+
+        JSONArray jarray;
+
+        try {
+            jarray = new JSONArray(result);
+
+            for(int i=0; i < jarray.length(); i++) {
+                JSONObject jobj = jarray.getJSONObject(i);
+
+                Driver driver = new Driver();
+                driver.setFirstName(jobj.getString("first_name"));
+                driver.setSurname(jobj.getString("last_name"));
+                driver.setConstructor(jobj.getString("constructor"));
+                driver.setPoints(jobj.getString("points"));
+                driver.setAbbreviatedName(jobj.getString("abbreviated_name"));
+
+                this.mDriversList.add(driver);
+            }
+        } catch(Exception e) {
+            Log.e("DBG", e.toString());
+        }
+    }
+
+    private void onConstructorStandingsJSONQueryResponse(String result) {
+        this.mConstructorsList = new ArrayList<>();
+
+        JSONArray jarray;
+
+        try {
+            jarray = new JSONArray(result);
+
+            for(int i=0; i < jarray.length(); i++) {
+                JSONObject jobj = jarray.getJSONObject(i);
+
+                Constructor constructor = new Constructor();
+                constructor.setName(jobj.getString("name"));
+                constructor.setPoints(jobj.getString("points"));
+
+                this.mConstructorsList.add(constructor);
+            }
+        } catch(Exception e) {
+            Log.e("DBG", e.toString());
+        }
     }
 
     private void openNews() {
@@ -251,6 +288,7 @@ public class MainActivity extends    AppCompatActivity
     private List<Video> mVideosList;
     private List<Driver> mDriversList;
     private List<Constructor> mConstructorsList;
+    private ProgressBar mProgressBar;
 
     private static final String FORMULANEWS_JSON_QUERY_NEWS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news";
     private static final String FORMULANEWS_JSON_QUERY_VIDEOS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos";
