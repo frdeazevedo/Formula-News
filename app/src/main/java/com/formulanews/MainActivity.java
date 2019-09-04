@@ -17,6 +17,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -93,6 +101,45 @@ public class MainActivity extends    AppCompatActivity
      *     result is the JSON string result of the URL queried
      */
     public void onJSONQueryResponse(String url, String result) {
+        //result == null means connection error
+        if(result == null) {
+            /**
+             * Load string result from cache
+             */
+            try {
+                URI uri = new URI(url);
+                String path = uri.getPath();
+                String service = path.substring(path.lastIndexOf("/")+1);
+
+                ObjectInput objectInput = new ObjectInputStream(new FileInputStream(new File(getCacheDir(), "") + service + "CacheFile.srl"));
+                result = (String)objectInput.readObject();
+                objectInput.close();
+
+                Log.d("DBG", "Loading from cache: "+result);
+            } catch(Exception e) {
+
+                Log.d("DBG", "Failed to load data from cache: there is no cache file saved.");
+                Log.e("DBG", e.toString());
+            }
+        } else {
+            /**
+             * Save response to cache
+             */
+            try {
+                URI uri = new URI(url);
+                String path = uri.getPath();
+                String service = path.substring(path.lastIndexOf("/")+1);
+
+                ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream(new File(getCacheDir(), "") + service + "CacheFile.srl"));
+                objectOutput.writeObject(result);
+                objectOutput.close();
+
+                Log.d("DBG", "Writing to cache: "+result);
+            } catch(Exception e) {
+                Log.e("DBG", e.toString());
+            }
+        }
+
         this.mProgressBar.setVisibility(View.GONE);
 
         String requestedService = null;
@@ -103,9 +150,6 @@ public class MainActivity extends    AppCompatActivity
             requestedService = path.substring(path.lastIndexOf("/")+1);
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            Toast toast = new Toast(this);
-            toast.setText("Connection error.");
-            toast.show();
         }
 
         if(requestedService == null) {
