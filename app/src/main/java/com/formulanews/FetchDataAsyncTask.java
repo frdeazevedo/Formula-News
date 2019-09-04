@@ -76,11 +76,11 @@ public class FetchDataAsyncTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        this.mHandler.onResponse(this.mUrl, result);
+        this.mHandler.onJSONQueryResponse(this.mUrl, result);
     }
 
     public interface OnJSONResponse {
-        void onResponse(String query, String response);
+        void onJSONQueryResponse(String query, String response);
     }
 
     private OnJSONResponse mHandler;

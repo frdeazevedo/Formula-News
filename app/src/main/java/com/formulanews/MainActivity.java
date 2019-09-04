@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,10 +38,14 @@ public class MainActivity extends    AppCompatActivity
         this.mVideosList = new ArrayList<>();
         this.mProgressBar.setVisibility(View.VISIBLE);
 
+        this.mNewsFragmentList = new ArrayList<>();
+        this.mVideosFragmentList = new ArrayList<>();
+        this.mStandingsFragmentList = new ArrayList<>();
+
         //Fetches the JSON of the news
         FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
         fetchNewsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
-
+/*
         //Fetches the JSON of the videos
         FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
         fetchVideosDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
@@ -55,23 +57,38 @@ public class MainActivity extends    AppCompatActivity
         //Fetches the JSON of the drivers standings
         FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
         fetchConstructorStandingsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
+ */
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        this.closeAllFragments();
+        //this.closeAllFragments();
 
         switch(item.getItemId()) {
             case R.id.action_news: {
-                this.openNews();
+                this.showFragmentList(this.mNewsFragmentList);
+                this.hideFragmentList(this.mVideosFragmentList);
+                this.hideFragmentList(this.mStandingsFragmentList);
+                //this.hideStandingsFragments();
+                //this.showNewsFragments();
+
+                //this.openNewsFragments();
                 break;
             }
             case R.id.action_standings: {
-                this.openStandings();
+                //this.hideVideosFragments();
+                //this.showStandingsFragments();
+                this.hideFragmentList(this.mNewsFragmentList);
+
+                //this.openStandingsFragments();
                 break;
             }
             case R.id.action_videos: {
-                this.openVideos();
+                //this.showVideosFragments();
+                //this.hideStandingsFragments();
+                this.hideFragmentList(this.mNewsFragmentList);
+
+                //this.openVideosFragments();
                 break;
             }
         }
@@ -84,7 +101,7 @@ public class MainActivity extends    AppCompatActivity
      *     url is the URL that was queried
      *     result is the JSON string result of the URL queried
      */
-    public void onResponse(String url, String result) {
+    public void onJSONQueryResponse(String url, String result) {
         this.mProgressBar.setVisibility(View.GONE);
 
         String requestedService = null;
@@ -149,7 +166,7 @@ public class MainActivity extends    AppCompatActivity
                 this.mNewsList.add(news);
             }
 
-            this.openNews();
+            this.openNewsFragments();
         } catch (Exception e) {
             Log.d("DBG", e.getMessage());
         }
@@ -225,11 +242,9 @@ public class MainActivity extends    AppCompatActivity
         }
     }
 
-    private void openNews() {
+    private void openNewsFragments() {
         if(this.mNewsList != null) {
-            List<Fragment> fragmentList = new ArrayList<>();
-
-            fragmentList.add(new FeaturedFragment(this, this.mNewsList.get(0)));
+            this.mNewsFragmentList.add(new FeaturedFragment(this, this.mNewsList.get(0)));
 
             int doublenews_counter = 0;
 
@@ -237,19 +252,19 @@ public class MainActivity extends    AppCompatActivity
                 if(doublenews_counter == 2) {
                     doublenews_counter = 0;
 
-                    fragmentList.add(new DoubleNewsFragment(this, this.mNewsList.get(i)));
+                    this.mNewsFragmentList.add(new DoubleNewsFragment(this, this.mNewsList.get(i)));
                 } else {
-                    fragmentList.add(new NewsFragment(this, this.mNewsList.get(i)));
+                    this.mNewsFragmentList.add(new NewsFragment(this, this.mNewsList.get(i)));
                 }
 
                 doublenews_counter++;
             }
 
-            this.openFragmentList(fragmentList);
+            this.openFragmentList(this.mNewsFragmentList);
         }
     }
 
-    private void openVideos() {
+    private void openVideosFragments() {
         List<Fragment> videos = new ArrayList<>();
 
         for(Video v:this.mVideosList) {
@@ -259,7 +274,7 @@ public class MainActivity extends    AppCompatActivity
         this.openFragmentList(videos);
     }
 
-    private void openStandings() {
+    private void openStandingsFragments() {
         List<Fragment> l = new ArrayList<>();
         l.add(new StandingsFragment(this.mDriversList, this.mConstructorsList));
         this.openFragmentList(l);
@@ -277,6 +292,34 @@ public class MainActivity extends    AppCompatActivity
         transaction.commit();
     }
 
+    private void showFragmentList(List<Fragment> fragmentList) {
+        if(fragmentList == null) {
+            return;
+        }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        for(Fragment f:fragmentList) {
+            transaction.show(f);
+        }
+
+        transaction.commit();
+    }
+
+    private void hideFragmentList(List<Fragment> fragmentList) {
+        if(fragmentList == null) {
+            return;
+        }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        for(Fragment f:fragmentList) {
+            transaction.hide(f);
+        }
+
+        transaction.commit();
+    }
+
     private void closeAllFragments() {
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(f).commit();
@@ -289,6 +332,9 @@ public class MainActivity extends    AppCompatActivity
     private List<Driver> mDriversList;
     private List<Constructor> mConstructorsList;
     private ProgressBar mProgressBar;
+    private List<Fragment> mNewsFragmentList;
+    private List<Fragment> mVideosFragmentList;
+    private List<Fragment> mStandingsFragmentList;
 
     private static final String FORMULANEWS_JSON_QUERY_NEWS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news";
     private static final String FORMULANEWS_JSON_QUERY_VIDEOS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos";
