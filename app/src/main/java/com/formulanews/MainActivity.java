@@ -36,6 +36,8 @@ public class MainActivity extends    AppCompatActivity
 
         this.mNewsList = new ArrayList<>();
         this.mVideosList = new ArrayList<>();
+        this.mDriversList = new ArrayList<>();
+        this.mConstructorsList = new ArrayList<>();
         this.mProgressBar.setVisibility(View.VISIBLE);
 
         this.mNewsFragmentList = new ArrayList<>();
@@ -45,7 +47,7 @@ public class MainActivity extends    AppCompatActivity
         //Fetches the JSON of the news
         FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
         fetchNewsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
-/*
+
         //Fetches the JSON of the videos
         FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
         fetchVideosDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
@@ -57,38 +59,27 @@ public class MainActivity extends    AppCompatActivity
         //Fetches the JSON of the drivers standings
         FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
         fetchConstructorStandingsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
- */
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        //this.closeAllFragments();
-
         switch(item.getItemId()) {
             case R.id.action_news: {
                 this.showFragmentList(this.mNewsFragmentList);
                 this.hideFragmentList(this.mVideosFragmentList);
                 this.hideFragmentList(this.mStandingsFragmentList);
-                //this.hideStandingsFragments();
-                //this.showNewsFragments();
-
-                //this.openNewsFragments();
                 break;
             }
             case R.id.action_standings: {
-                //this.hideVideosFragments();
-                //this.showStandingsFragments();
+                this.hideFragmentList(this.mVideosFragmentList);
+                this.showFragmentList(this.mStandingsFragmentList);
                 this.hideFragmentList(this.mNewsFragmentList);
-
-                //this.openStandingsFragments();
                 break;
             }
             case R.id.action_videos: {
-                //this.showVideosFragments();
-                //this.hideStandingsFragments();
+                this.showFragmentList(this.mVideosFragmentList);
+                this.hideFragmentList(this.mStandingsFragmentList);
                 this.hideFragmentList(this.mNewsFragmentList);
-
-                //this.openVideosFragments();
                 break;
             }
         }
@@ -115,6 +106,10 @@ public class MainActivity extends    AppCompatActivity
             Toast toast = new Toast(this);
             toast.setText("Connection error.");
             toast.show();
+        }
+
+        if(requestedService == null) {
+            return;
         }
 
         switch(requestedService) {
@@ -193,6 +188,8 @@ public class MainActivity extends    AppCompatActivity
         } catch(Exception e) {
             Log.e("DBG", e.toString());
         }
+
+        this.openVideosFragments();
     }
 
     private void onDriverStandingsJSONQueryResponse(String result) {
@@ -218,6 +215,8 @@ public class MainActivity extends    AppCompatActivity
         } catch(Exception e) {
             Log.e("DBG", e.toString());
         }
+
+        this.openStandingsFragments();
     }
 
     private void onConstructorStandingsJSONQueryResponse(String result) {
@@ -240,6 +239,8 @@ public class MainActivity extends    AppCompatActivity
         } catch(Exception e) {
             Log.e("DBG", e.toString());
         }
+
+        this.openStandingsFragments();
     }
 
     private void openNewsFragments() {
@@ -265,19 +266,33 @@ public class MainActivity extends    AppCompatActivity
     }
 
     private void openVideosFragments() {
-        List<Fragment> videos = new ArrayList<>();
-
-        for(Video v:this.mVideosList) {
-            videos.add(new VideoFragment(this, v.mVideoTitle, v.mVideoDescription, v.mVideoId));
+        if(this.mVideosFragmentList == null) {
+            return;
         }
 
-        this.openFragmentList(videos);
+        for(Video v:this.mVideosList) {
+            this.mVideosFragmentList.add(new VideoFragment(this, v.mVideoTitle, v.mVideoDescription, v.mVideoId));
+        }
+
+        this.openFragmentList(this.mVideosFragmentList);
     }
 
     private void openStandingsFragments() {
-        List<Fragment> l = new ArrayList<>();
-        l.add(new StandingsFragment(this.mDriversList, this.mConstructorsList));
-        this.openFragmentList(l);
+        if(this.mStandingsFragmentList == null) {
+            return;
+        }
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        for(Fragment f:this.mStandingsFragmentList) {
+            fragmentTransaction.remove(f);
+        }
+
+        fragmentTransaction.commit();
+
+        this.mStandingsFragmentList.add(new StandingsFragment(this.mDriversList, this.mConstructorsList));
+
+        this.openFragmentList(this.mStandingsFragmentList);
     }
 
     private void openFragmentList(List<Fragment> fragmentList) {
