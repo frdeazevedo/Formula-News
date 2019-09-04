@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -103,6 +104,8 @@ public class MainActivity extends    AppCompatActivity
     public void onJSONQueryResponse(String url, String result) {
         //result == null means connection error
         if(result == null) {
+            this.mTextViewNoInternet.setVisibility(View.VISIBLE);
+
             /**
              * Load string result from cache
              */
@@ -122,6 +125,8 @@ public class MainActivity extends    AppCompatActivity
                 Log.e("DBG", e.toString());
             }
         } else {
+            this.mTextViewNoInternet.setVisibility(View.GONE);
+
             /**
              * Save response to cache
              */
@@ -176,6 +181,7 @@ public class MainActivity extends    AppCompatActivity
         this.mBottomNavigationView = findViewById(R.id.bottom_navigation);
         this.mBottomNavigationView.setOnNavigationItemSelectedListener(this);
         this.mProgressBar = findViewById(R.id.progress_bar);
+        this.mTextViewNoInternet = findViewById(R.id.text_view_no_internet);
     }
 
     private void onNewsJSONQueryResponse(String result) {
@@ -386,11 +392,14 @@ public class MainActivity extends    AppCompatActivity
     }
 
     private BottomNavigationView mBottomNavigationView;
+    private ProgressBar mProgressBar;
+    private TextView mTextViewNoInternet;
+
     private List<News> mNewsList;
     private List<Video> mVideosList;
     private List<Driver> mDriversList;
     private List<Constructor> mConstructorsList;
-    private ProgressBar mProgressBar;
+
     private List<Fragment> mNewsFragmentList;
     private List<Fragment> mVideosFragmentList;
     private List<Fragment> mStandingsFragmentList;

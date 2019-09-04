@@ -4,4 +4,5 @@
     <string name="menu_news">Notícias</string>
     <string name="menu_videos">Vídeos</string>
     <string name="menu_standings">Tabelas</string>
+    <string name="no_internet_available">No internet connection available.</string>
 </resources>

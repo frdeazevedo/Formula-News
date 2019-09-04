@@ -26,6 +26,13 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:visibility="gone"/>
+            <TextView
+                android:id="@+id/text_view_no_internet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#f00"
+                android:text="@string/no_internet_available"/>
             <LinearLayout
                 android:id="@+id/container"
                 android:orientation="vertical"
