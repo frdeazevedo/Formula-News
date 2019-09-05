@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Formula S</string>
-    <string name="server_address">https://my-json-server.typicode.com/frdeazevedo/fake_rest/</string>
     <string name="menu_news">Notícias</string>
     <string name="menu_videos">Vídeos</string>
     <string name="menu_standings">Tabelas</string>
     <string name="no_internet_available">No internet connection available.</string>
+    <string name="json_server_url">https://my-json-server.typicode.com/frdeazevedo/fake_rest</string>
 </resources>

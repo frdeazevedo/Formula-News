@@ -21,12 +21,9 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ConstructorStandings extends Fragment {
-
-
     public ConstructorStandings(List<Constructor> constructors) {
         this.mConstructorList = constructors;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +34,8 @@ public class ConstructorStandings extends Fragment {
 
         WebView webView = view.findViewById(R.id.webview_constructor_standings);
         webView.loadData(this.generateHtml(), "text/html", "utf-8");
+
+        Log.d("MK", this.generateHtml());
 
         return view;
     }

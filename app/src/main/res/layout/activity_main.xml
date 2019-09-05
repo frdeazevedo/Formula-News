@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#f00"
+                android:visibility="gone"
                 android:text="@string/no_internet_available"/>
             <LinearLayout
                 android:id="@+id/container"

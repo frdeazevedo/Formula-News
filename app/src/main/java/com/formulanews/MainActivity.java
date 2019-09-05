@@ -54,20 +54,20 @@ public class MainActivity extends    AppCompatActivity
         this.mStandingsFragmentList = new ArrayList<>();
 
         //Fetches the JSON of the news
-        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
-        fetchNewsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
+        FetchDataAsyncTask fetchNewsDataAsyncTask = new FetchDataAsyncTask(this, getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
+        fetchNewsDataAsyncTask.execute(getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_NEWS);
 
         //Fetches the JSON of the videos
-        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
-        fetchVideosDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
+        FetchDataAsyncTask fetchVideosDataAsyncTask = new FetchDataAsyncTask(this, getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
+        fetchVideosDataAsyncTask.execute(getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_VIDEOS);
 
         //Fetches the JSON of the drivers standings
-        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
-        fetchDriverStandingsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
+        FetchDataAsyncTask fetchDriverStandingsDataAsyncTask = new FetchDataAsyncTask(this, getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
+        fetchDriverStandingsDataAsyncTask.execute(getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS);
 
         //Fetches the JSON of the drivers standings
-        FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
-        fetchConstructorStandingsDataAsyncTask.execute(MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
+        FetchDataAsyncTask fetchConstructorStandingsDataAsyncTask = new FetchDataAsyncTask(this, getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
+        fetchConstructorStandingsDataAsyncTask.execute(getResources().getString(R.string.json_server_url)+MainActivity.FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS);
     }
 
     @Override
@@ -120,7 +120,6 @@ public class MainActivity extends    AppCompatActivity
 
                 Log.d("DBG", "Loading from cache: "+result);
             } catch(Exception e) {
-
                 Log.d("DBG", "Failed to load data from cache: there is no cache file saved.");
                 Log.e("DBG", e.toString());
             }
@@ -404,8 +403,8 @@ public class MainActivity extends    AppCompatActivity
     private List<Fragment> mVideosFragmentList;
     private List<Fragment> mStandingsFragmentList;
 
-    private static final String FORMULANEWS_JSON_QUERY_NEWS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/news";
-    private static final String FORMULANEWS_JSON_QUERY_VIDEOS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/videos";
-    private static final String FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/driver_standings";
-    private static final String FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS = "https://my-json-server.typicode.com/frdeazevedo/fake_rest/constructor_standings";
+    private static final String FORMULANEWS_JSON_QUERY_NEWS = "/news";
+    private static final String FORMULANEWS_JSON_QUERY_VIDEOS = "/videos";
+    private static final String FORMULANEWS_JSON_QUERY_DRIVER_STANDINGS = "/driver_standings";
+    private static final String FORMULANEWS_JSON_QUERY_CONSTRUCTOR_STANDINGS = "/constructor_standings";
 }
