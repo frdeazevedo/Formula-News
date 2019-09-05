@@ -35,8 +35,6 @@ public class ConstructorStandings extends Fragment {
         WebView webView = view.findViewById(R.id.webview_constructor_standings);
         webView.loadData(this.generateHtml(), "text/html", "utf-8");
 
-        Log.d("MK", this.generateHtml());
-
         return view;
     }
 
